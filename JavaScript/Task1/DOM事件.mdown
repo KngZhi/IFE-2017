@@ -1,0 +1,133 @@
+# Difference between `onclick`<sup>1</sup>:foot and `addEventListener('click',tag)`
+
+## Event Listener(addEventListener and IE's attachEvent)
+
+`element.attachEvent('onclick',function() { /* do stuff here */ })` 在 IE9 之前的微软浏览器需要使用这个函数。
+
+`addEventListener("click", myFunction() { /* stuff here */ }, fasle)`(DOM Level 2 events).[DOM Level 2 events](https://www.w3.org/wiki/Handling_events_with_JavaScript#The_evolution_of_events) 在0级时间的基础上弥补了一个处理程序无法同时绑定多个处理函数的缺点，允许给一个处理程序添加多个处理函数
+- "click" : the name of the event, nolonger use "on" prefix.
+- `myFunction`: Reference to the function we want to call when the event occurs.
+- `false`: controls how Listener reacts to bubbling events
+    - bubbling events[[doc](http://www.w3.org/TR/DOM-Level-3-Events/#event-flow)]:底层的事件处理函数优先得到触发，表层的事件最后触发。
+    - 捕获型事件：表层的时间处理函数首先被处罚，底层的处理函数最后被触发。
+
+    > 而在W3c的事件模型中的事件，首先进入捕获阶段，直到达到目标元素，再进入冒泡阶段，通过`addEventListener`的最后一个参数来决定选择捕获或冒泡阶段绑定事件处理函数并进行事件传播。
+        - true: 在捕获阶段绑定函数。(BTW `element.onclock` 默认被视为绑定在冒泡阶段)
+        - false: 在冒泡阶段绑定函数。
+
+    由上述之，通过有意识的去选择冒泡型或捕获型事件来防止意外情况出现。如：通过明确指示之前一个处理函数终止冒泡(`event.stopPropagation()`)来防止出现点击了一次鼠标出现了许多种情况(多个函数被执行，因为冒泡)。
+        - 事件对象：一个事件处理程序的参数,如下例中的`event`.
+            ```js
+            function getEvent(event) {
+                    event = event || window.event;
+            }
+            ```
+            - 事件对象方法
+                - `event.stopPropagation()`阻止事件进一步传播，如阻止事件继续向上冒泡；(低版本IE 通过 `event.cancelBubble = true`)
+                - `event.preventDefault()`取消事件的默认操作
+                    ```js
+                    var go = document.getElementById('go');
+                    function goFn(event) {
+                        event.preventDefault();
+                        console.log('我没有跳转！');
+                    }
+                    go.addEventListener('click', goFn, false);
+                    ```
+            - 事件对象属性
+                - `event.type`获取事件发生的类型(布尔、字符串、Int、float?)
+                - `event.target`获取事件的目标对象，比如点击`<a>`时获取的就是`<a>`标签的 HTML对象。**[疑问]** 等同于 `document.getElementsByTagName`吗？
+                - etc..
+
+- anonymous function: "An anonymous function is a function without a name." when it has no identifier, which could be a varible.Here is all of [the pro's and con's](http://blog.scottlogic.com/2011/06/10/javascript-anonymous-functions.html) between named and anonymous
+
+|NAMED|ANONYMOUS|
+|-----|---------|
+|**Debugging**: 我们能从 stack trace 中看到函数的名称。如果在 stack 中看到的都是"anonymous"则并不是很有用|**Scope**: when creating a fake "block" scope using an *immediately executing function*,we don't really need a name.|
+|**递归**:当一个函数有一个名字，如果他只被 assiged 给一个变量，则该变量就 outside the function's scope.|**简洁**：若是非常简短的函数或 callback，或是立即执行的函数，那么就可以通过忽略名字来保持函数的 declaration short.|
+
+
+## Inline events(HTML onclick="" preperty and element.onclick)
+从某种程度而言，`element.onclick = function () { /* code here */}` ≈ `<a onclick=""></a>`.其唯一的区别在于`element.onclick`对 scope 有更多的控制以及可以使用匿名函数，function reference,以及/或者闭包。
+> 闭包[[doc](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Closures)]是指那些能够访问独立(自由)变量的**函数**(变量在本地使用但定义在一个封闭的定义域中)。这些函数可以”记忆”它被创造时候的环境
+```js
+function makeFunc() {
+  var name = "Mozilla";// name是被init创建的局部变量
+  function displayName() { // displayName() 是一个内部函数
+    alert(name);// 使用父函数中声明的变量的闭包。
+  }
+  return displayName;
+}
+var myFunc = makeFunc();
+myFunc();
+```
+闭包是一个特殊的对象。它由两部分构成：函数，以及创造该函数的环境。环境由闭包创造时在作用域中的**任何局部变量**组成。在上述的例子中，myFunc 是一个闭包，由`displayName`函数和闭包创建时存在的“Mozilla” 字符串形成。
+alert 的显示就是 "Mozilila"。因此可知变量的*作用域*是由它在源代码中所处位置决定的(*显然如此*)并且嵌套的函数可以访问其外层作用域中声明的变量。
+>> 词法作用域与动态作用域[[source](http://www.jianshu.com/p/70b38c7ab69c)]
+作用域：一段程序代码中所用到的名字并不总是有效/可用的，而限定该名字的可用性的范围就是该名字的作用域
+- 词法作用域：又称静态作用域，即在写代码或者定义时就确定的。它关注函数在何处声明。
+- 动态作用域：是在运行时确定的(如：`this`)。它关注函数从何处调用。
+    >Javascript 不具有动态作用域，它只有词法作用域。但是它的`eval()`,`with`,`this` 的机制有点类似动态作用域。
+
+而inline events 明显的缺点就是它不像 event Listener 一样它只能有 one inline event assigned[DOM Level 0 events].而且 inline events 会被储存为元素的一个 attribute/property([Event-handler Attributes](https://www.w3.org/wiki/HTML/Attributes/_Global#Event-handler_Attributes))
+。也就是说它可以被覆盖。
+```js
+var element = document.getElementById('testing');
+element.onclick = function () { alert('did stuff #1'); };
+element.onclick = function () { alert('did stuff #2'); };
+```
+只能看见弹窗显示" Did stuff #2".可见#1被覆盖了。
+
+
+## 哪个更好？
+1. 你是否需要对一个元素附加多个事件。若是，则使用`addEventListener`,否则使用`event.onclick`.
+2. 在未来会有所改变吗？若是，选择`addEventListener`,否则使用`event.onclick`
+3.  IE ≥ IE 9，使用`addEventListener`,IE < 9,使用`attachEvent`
+
+P.S 整个论述以在 [Stackoverflow](http://stackoverflow.com/questions/6348494/addeventlistener-vs-onclick) 的最高票回答为主线并进行扩展延伸。
+
+# innerHTML\\firstChild.nodeValue\\innerText 的区别？
+
+||innerHTML[[doc](https://developer.mozilla.org/en-US/docs/Web/API/Element/innerHTML)]|Node.nodeValue[[doc](https://developer.mozilla.org/zh-CN/docs/Web/API/Node/nodeValue)]|innerText[[doc](https://developer.mozilla.org/en-US/docs/Web/API/Node/innerText)]|textContent(https://developer.mozilla.org/en-US/docs/Web/API/Node/textContent)|
+|--|---------|--------------------|---------|
+|Summary|parses content as HTML and takes longer|对于文本节点返回`null`,对于 text,comment,CDATA返回该节点的文本内容,对于 attribute 节点返回该属性的属性值|Takes styles into consideration.It won't get hidden text for instance.|use straight text, doesn't parase HTML,and is faster|
+
+## Node.textContent 与 innerText 的区别
+- textContent会获取所有元素的内容，包括`<script>`与`<style>`元素，但 innerText不会。
+- innerText 会受到样式的影响。不返回隐藏元素的文本[**[疑惑]** i.e,`display: none;`？]，但 textContent 返回
+- 由于 innerText 受 CSS 样式的影响，会触发重排(reflow),但 textContent不会。
+- 在小于 IE11 中对 innerText 进行修改不仅会移除当前元素的子节点，而且会永久性的销毁所有内部文本节点。
+
+## Node.textContent 与 innerHTML 的区别
+
+innerHTML 会返回HTML 文本，以下例作为解释再好不过
+```js
+// 给定如下HTML:
+//   <div id="divA">This is <span>some</span> text</div>
+// 获得文本内容:
+var text = document.getElementById("divA").textContent;
+// |text| is set to "This is some text".
+// 设置文本内容:
+document.getElementById("divA").textContent = "This is some text";
+// divA的HTML现在是这样的:
+//   <div id="divA">This is some text</div>
+```
+因此，在 MDN 中并不推荐当需要往一个元素里面写纯文本的时候采用`innerHTML`,使用`textContent`使得文本不会被解析为 HTML ，可能会在性能上表现更好。这里提一句：回车(`<br>`)和空格都是会产生文本节点的。
+
+那什么时候采用`innerHTML`呢？比如当你需要`<em>`等之类的标签的时候。
+
+Q： 为什么 `firstChild` 会返回 null?
+> firstChild 属性返回被选节点的第一个子节点。 如果选定的节点没有子节点，则该属性返回 NULL。[[doc](http://www.w3school.com.cn/xmldom/prop_element_firstchild.asp)]
+
+
+
+
+----
+- 1: 这里注意不要写`onClick`，JS 对大小写有严格的规定
+- [addEventListener vs onclick Stackoverflow](http://stackoverflow.com/questions/6348494/addeventlistener-vs-onclick)
+- [JAVASCRIPT ANONYMOUS FUNCTIONS
+](http://blog.scottlogic.com/2011/06/10/javascript-anonymous-functions.html)
+- [【原创翻译】生动详细解释javascript的冒泡和捕获，包懂包会](http://www.cnblogs.com/hh54188/archive/2012/02/08/2343357.html)
+- [JavaScript 详说事件机制之冒泡、捕获、传播、委托](http://www.cnblogs.com/bfgis/p/5460191.html)
+- [词法作用域 VS 动态作用域
+](http://www.jianshu.com/p/70b38c7ab69c)
+- [nodeValue vs innerHTML and textContent. How to choose? Ask Question](http://stackoverflow.com/questions/21311299/nodevalue-vs-innerhtml-and-textcontent-how-to-choose)
