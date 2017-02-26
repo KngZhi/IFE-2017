@@ -1,0 +1,39 @@
+# 数组及其方法
+我的思路：
+1. 获取`aqiData`数组中的数据
+    1. 将数组中的数据从大到小排序
+    2. 帅选出大于60的城市
+2. 创建`<li>`标签
+3. 将筛选出来的城市及其 api 赋值给 `<li>` 标签
+
+我碰到的问题：
+- 如何根据数组的第二个参数降序排序？
+`arr.sort(compareFunction(a, b){ /* type code here */ })`
+
+- `compareFunction`代表排序的方法,即你希望根据什么因素来进行排序，是降序还是升序。
+- 如果 compareFunction(a,b) return 的结果小于0，i.e, a - b < 0(移项 a < b) ，则 a 会排列到 b 之前(升序)。若大于0， 则 b 会在 a 之前。
+- 数组中有多个数据时具体的选择方法：`Array[a][b]`
+----
+[借鉴他人的思路(一)](https://github.com/jshacker007/ife2016/blob/master/stage2/task14/index2.html):
+
+使用 array.filter() ,array.sort(), array.forEach()来代替 for 循环处理数组元素，通过 method chaining 来使用三个方法。
+最后使用 element.innerHTML 属性一次性改变元素的 DOM 结构。
+
+重点理解下`array.forEach(callback(currentValue, index, array){ /* do sth here */}, this)`
+
+
+#### Method chaining
+Q: 什么是 method chaining?
+>Method chaining is a technique that can be used to simplify code in scenarios that involve calling multiple functions on the same obeject consecutively.
+
+Q:为什么使用它？
+- 让调用过程更接近自然语言
+- 把原本参数列表中复杂的方法化为多个参数列表简单的方法来使用？
+- 减少不必要的代码量
+
+
+---
+Reference:
+- [Mathod chaining in javascript](https://schier.co/blog/2013/11/14/method-chaining-in-javascript.html)
+- [“链式调用（方法链）”的概念与误区
+](https://www.web-tinker.com/article/20153.html)

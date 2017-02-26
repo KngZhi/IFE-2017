@@ -1,18 +1,18 @@
-# Difference between `onclick`<sup>1</sup>:foot and `addEventListener('click',tag)`
+# Difference between `onclick`<sup>1</sup> and `addEventListener('click',tag)`
 
 ## Event Listener(addEventListener and IE's attachEvent)
 
 `element.attachEvent('onclick',function() { /* do stuff here */ })` 在 IE9 之前的微软浏览器需要使用这个函数。
 
-`addEventListener("click", myFunction() { /* stuff here */ }, fasle)`(DOM Level 2 events).[DOM Level 2 events](https://www.w3.org/wiki/Handling_events_with_JavaScript#The_evolution_of_events) 在0级时间的基础上弥补了一个处理程序无法同时绑定多个处理函数的缺点，允许给一个处理程序添加多个处理函数
-- "click" : the name of the event, nolonger use "on" prefix.
+`addEventListener("click", myFunction() { /* stuff here */ }, fasle)`.[DOM Level 2 events](https://www.w3.org/wiki/Handling_events_with_JavaScript#The_evolution_of_events) 在0级时间的基础上弥补了一个处理程序无法同时绑定多个处理函数的缺点，允许给一个处理程序添加多个处理函数
+- `"click"` : the name of the event, nolonger use "on" prefix.
 - `myFunction`: Reference to the function we want to call when the event occurs.
 - `false`: controls how Listener reacts to bubbling events
     - bubbling events[[doc](http://www.w3.org/TR/DOM-Level-3-Events/#event-flow)]:底层的事件处理函数优先得到触发，表层的事件最后触发。
-    - 捕获型事件：表层的时间处理函数首先被处罚，底层的处理函数最后被触发。
+    - 捕获型事件：表层的时间处理函数首先被触发，底层的处理函数最后被触发。
 
-    > 而在W3c的事件模型中的事件，首先进入捕获阶段，直到达到目标元素，再进入冒泡阶段，通过`addEventListener`的最后一个参数来决定选择捕获或冒泡阶段绑定事件处理函数并进行事件传播。
-        - true: 在捕获阶段绑定函数。(BTW `element.onclock` 默认被视为绑定在冒泡阶段)
+    > 而在W3c的事件模型中的事件，首先进入捕获阶段，直到达到目标元素(目标阶段)，再进入冒泡阶段，通过`addEventListener`的最后一个参数来决定选择捕获或冒泡阶段绑定事件处理函数并进行事件传播。
+        - true: 在捕获阶段绑定函数。(`element.onclock` 默认被视为绑定在冒泡阶段)
         - false: 在冒泡阶段绑定函数。
 
     由上述之，通过有意识的去选择冒泡型或捕获型事件来防止意外情况出现。如：通过明确指示之前一个处理函数终止冒泡(`event.stopPropagation()`)来防止出现点击了一次鼠标出现了许多种情况(多个函数被执行，因为冒泡)。
@@ -42,7 +42,7 @@
 
 |NAMED|ANONYMOUS|
 |-----|---------|
-|**Debugging**: 我们能从 stack trace 中看到函数的名称。如果在 stack 中看到的都是"anonymous"则并不是很有用|**Scope**: when creating a fake "block" scope using an *immediately executing function*,we don't really need a name.|
+|**Debugging**: we see the name of functions in the stack trace. If all we're seeing is "anonymous" up and down the stack, that's not too useful.|**Scope**: when creating a fake "block" scope using an *immediately executing function*,we don't really need a name.|
 |**递归**:当一个函数有一个名字，如果他只被 assiged 给一个变量，则该变量就 outside the function's scope.|**简洁**：若是非常简短的函数或 callback，或是立即执行的函数，那么就可以通过忽略名字来保持函数的 declaration short.|
 
 
@@ -87,7 +87,7 @@ P.S 整个论述以在 [Stackoverflow](http://stackoverflow.com/questions/634849
 
 # innerHTML\\firstChild.nodeValue\\innerText 的区别？
 
-||innerHTML[[doc](https://developer.mozilla.org/en-US/docs/Web/API/Element/innerHTML)]|Node.nodeValue[[doc](https://developer.mozilla.org/zh-CN/docs/Web/API/Node/nodeValue)]|innerText[[doc](https://developer.mozilla.org/en-US/docs/Web/API/Node/innerText)]|textContent(https://developer.mozilla.org/en-US/docs/Web/API/Node/textContent)|
+||innerHTML[[doc](https://developer.mozilla.org/en-US/docs/Web/API/Element/innerHTML)]|Node.nodeValue[[doc](https://developer.mozilla.org/zh-CN/docs/Web/API/Node/nodeValue)]|innerText[[doc](https://developer.mozilla.org/en-US/docs/Web/API/Node/innerText)]|textContent[doc](https://developer.mozilla.org/en-US/docs/Web/API/Node/textContent)|
 |--|---------|--------------------|---------|
 |Summary|parses content as HTML and takes longer|对于文本节点返回`null`,对于 text,comment,CDATA返回该节点的文本内容,对于 attribute 节点返回该属性的属性值|Takes styles into consideration.It won't get hidden text for instance.|use straight text, doesn't parase HTML,and is faster|
 
