@@ -4,19 +4,19 @@
 
 `element.attachEvent('onclick',function() { /* do stuff here */ })` 在 IE9 之前的微软浏览器需要使用这个函数。
 
-`addEventListener("click", myFunction() { /* stuff here */ }, fasle)`.[DOM Level 2 events](https://www.w3.org/wiki/Handling_events_with_JavaScript#The_evolution_of_events) 在0级时间的基础上弥补了一个处理程序无法同时绑定多个处理函数的缺点，允许给一个处理程序添加多个处理函数
+`addEventListener("click", myFunction() { /* stuff here */ }, false)`.[DOM Level 2 events](https://www.w3.org/wiki/Handling_events_with_JavaScript#The_evolution_of_events) 在0级事件的基础上弥补了一个处理程序无法同时绑定多个处理函数的缺点，允许给一个处理程序添加多个处理函数
 - `"click"` : the name of the event, nolonger use "on" prefix.
 - `myFunction`: Reference to the function we want to call when the event occurs.
 - `false`: controls how Listener reacts to bubbling events
     - bubbling events[[doc](http://www.w3.org/TR/DOM-Level-3-Events/#event-flow)]:底层的事件处理函数优先得到触发，表层的事件最后触发。
-    - 捕获型事件：表层的时间处理函数首先被触发，底层的处理函数最后被触发。
+    - 捕获型事件：表层的事件处理函数首先被触发，底层的处理函数最后被触发。
 
     > 而在W3c的事件模型中的事件，首先进入捕获阶段，直到达到目标元素(目标阶段)，再进入冒泡阶段，通过`addEventListener`的最后一个参数来决定选择捕获或冒泡阶段绑定事件处理函数并进行事件传播。
         - true: 在捕获阶段绑定函数。(`element.onclock` 默认被视为绑定在冒泡阶段)
         - false: 在冒泡阶段绑定函数。
 
     由上述之，通过有意识的去选择冒泡型或捕获型事件来防止意外情况出现。如：通过明确指示之前一个处理函数终止冒泡(`event.stopPropagation()`)来防止出现点击了一次鼠标出现了许多种情况(多个函数被执行，因为冒泡)。
-        - 事件对象：一个事件处理程序的参数,如下例中的`event`.
+        - 事件对象(object)是一个事件处理程序的参数,如下例中的`event`.
             ```js
             function getEvent(event) {
                     event = event || window.event;
@@ -85,9 +85,9 @@ element.onclick = function () { alert('did stuff #2'); };
 
 P.S 整个论述以在 [Stackoverflow](http://stackoverflow.com/questions/6348494/addeventlistener-vs-onclick) 的最高票回答为主线并进行扩展延伸。
 
-# innerHTML\\firstChild.nodeValue\\innerText 的区别？
+# innerHTML\\node.nodeValue\\innerText 的区别？
 
-||innerHTML[[doc](https://developer.mozilla.org/en-US/docs/Web/API/Element/innerHTML)]|Node.nodeValue[[doc](https://developer.mozilla.org/zh-CN/docs/Web/API/Node/nodeValue)]|innerText[[doc](https://developer.mozilla.org/en-US/docs/Web/API/Node/innerText)]|textContent[doc](https://developer.mozilla.org/en-US/docs/Web/API/Node/textContent)|
+||Node.innerHTML[[doc](https://developer.mozilla.org/en-US/docs/Web/API/Element/innerHTML)]|Node.nodeValue[[doc](https://developer.mozilla.org/zh-CN/docs/Web/API/Node/nodeValue)]|Node.innerText[[doc](https://developer.mozilla.org/en-US/docs/Web/API/Node/innerText)]|textContent[doc](https://developer.mozilla.org/en-US/docs/Web/API/Node/textContent)|
 |--|---------|--------------------|---------|
 |Summary|parses content as HTML and takes longer|对于文本节点返回`null`,对于 text,comment,CDATA返回该节点的文本内容,对于 attribute 节点返回该属性的属性值|Takes styles into consideration.It won't get hidden text for instance.|use straight text, doesn't parase HTML,and is faster|
 
@@ -117,9 +117,6 @@ document.getElementById("divA").textContent = "This is some text";
 
 Q： 为什么 `firstChild` 会返回 null?
 > firstChild 属性返回被选节点的第一个子节点。 如果选定的节点没有子节点，则该属性返回 NULL。[[doc](http://www.w3school.com.cn/xmldom/prop_element_firstchild.asp)]
-
-
-
 
 ----
 - 1: 这里注意不要写`onClick`，JS 对大小写有严格的规定

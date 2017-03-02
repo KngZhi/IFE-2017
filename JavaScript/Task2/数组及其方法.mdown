@@ -7,12 +7,12 @@
 3. 将筛选出来的城市及其 api 赋值给 `<li>` 标签
 
 我碰到的问题：
-- 如何根据数组的第二个参数降序排序？
-`arr.sort(compareFunction(a, b){ /* type code here */ })`
+- 如何根据数组的第i个参数降序排序？
+`arr.sort(compareFunction(a[i], b[i]){ /* type code here */ })`
 
 - `compareFunction`代表排序的方法,即你希望根据什么因素来进行排序，是降序还是升序。
 - 如果 compareFunction(a,b) return 的结果小于0，i.e, a - b < 0(移项 a < b) ，则 a 会排列到 b 之前(升序)。若大于0， 则 b 会在 a 之前。
-- 数组中有多个数据时具体的选择方法：`Array[a][b]`
+- 选择数组中某维数据时的方法：`Array[a][b]`
 ----
 [借鉴他人的思路(一)](https://github.com/jshacker007/ife2016/blob/master/stage2/task14/index2.html):
 
@@ -31,6 +31,19 @@ Q:为什么使用它？
 - 把原本参数列表中复杂的方法化为多个参数列表简单的方法来使用？
 - 减少不必要的代码量
 
+```css
+#a {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+}
+```
+```js
+arr.sort(function(a,b){
+    return b - a; 
+})
+```
 
 ---
 Reference:
