@@ -28,10 +28,6 @@
         rightin.onclick = function rightIn(){
             var div = addDiv();
             position.appendChild(div);
-            // if (input_num%1 === 0) {
-            //     position.innerHTML = "<span>" + input_num + "</span>";
-            // }
-            //存在问题，会使得 leftwrap 函数无法使用。
         }
 
         leftin.onclick = function leftIn() {
@@ -41,7 +37,7 @@
 
         leftout.onclick = function leftOut() {
             if (position.firstElementChild) {
-                alert(position.firstElementChild.textContent)
+                alert(position.firstElementChild.textContent);
                 position.removeChild(position.firstElementChild);
             } else {
                 alert("队列中已不存在数值");
@@ -60,7 +56,7 @@
         function addDiv() {
             var div = document.createElement("div");
             if (document.body.firstElementChild.value.search(/^\d{1,9}$/) != -1) {
-                var text = document.createTextNode(document.body.firstElementChild.value)
+                var text = document.createTextNode(document.body.firstElementChild.value);
                 div.appendChild(text);
                 div.className = "item";
                 //绑定 click 事件
