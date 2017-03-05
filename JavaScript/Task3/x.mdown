@@ -1,0 +1,12 @@
+objection nodelist
+object node collection的区别？
+
+[obeject HTMLcollection] 即元素集合，不能使用数组的方法，必须要将其转化，通过 Array.from
+转化完之后就会变成
+```js
+var oLi=oUl.getElementsByTagName("li");
+
+oLi=Array.from(oLi);//ES6把元素集合转化成数组
+alert(oLi)
+```
+转化完之后就会变成一维的数组 oLi = [[object HTMLLIElement],[object HTMLLIElement],[object HTMLLIElement],[object HTMLLIElement],[object HTMLLIElement],[object HTMLLIElement],[object HTMLLIElement]]]

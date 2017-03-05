@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .item {
+            float: left;
+            min-width: 50px;
+            height: 50px;
+            margin: 10px;
+            background: #f5f5f5;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <input type="text">
+    <button type="button" name="button" id="leftin">左侧入</button>
+    <button type="button" name="button" id="rightin">右侧入</button>
+    <button type="button" name="button" id="leftout">左侧出</button>
+    <button type="button" name="button" id="rightout">右侧出</button>
+    <div id="position">
+    </div>
+    <script type="text/javascript">
+        rightin.onclick = function rightIn(){
+            var div = addDiv();
+            position.appendChild(div);
+            // if (input_num%1 === 0) {
+            //     position.innerHTML = "<span>" + input_num + "</span>";
+            // }
+            //存在问题，会使得 leftwrap 函数无法使用。
+        }
+
+        leftin.onclick = function leftIn() {
+            var div = addDiv();
+            position.insertBefore(div,position.firstElementChild)
+        }
+
+        leftout.onclick = function leftOut() {
+            if (position.firstElementChild) {
+                alert(position.firstElementChild.textContent)
+                position.removeChild(position.firstElementChild);
+            } else {
+                alert("队列中已不存在数值");
+            }
+        }
+
+        rightout.onclick = function rightOut() {
+            if (position.lastElementChild) {
+                alert(position.lastElementChild.textContent);
+                position.removeChild(position.lastElementChild);
+            } else {
+                alert("队列中已不存在数值");
+            }
+        }
+
+        function addDiv() {
+            var div = document.createElement("div");
+            if (document.body.firstElementChild.value.search(/^\d{1,9}$/) != -1) {
+                var text = document.createTextNode(document.body.firstElementChild.value)
+                div.appendChild(text);
+                div.className = "item";
+                //绑定 click 事件
+                div.addEventListener("click",remove);
+                return div;//为什么要 return div?
+            } else {
+                alert("请输入0-9位的数字");
+            }
+        }
+
+        function remove(){
+            alert("移除的数值为"+ this.innerHTML);
+            this.parentNode.removeChild(this);
+        }
+
+
+        // window.onload = clickDismiss();
+
+
+    </script>
+</body>
+</html>
