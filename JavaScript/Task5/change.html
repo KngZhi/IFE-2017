@@ -21,7 +21,6 @@
     <button type="button" name="button" id="rightin">右侧入</button>
     <button type="button" name="button" id="leftout">左侧出</button>
     <button type="button" name="button" id="rightout">右侧出</button>
-    <button type="button" name="button" id="display"> 图像</button>
     <button type="button" name="button" id="sort">排序</button>
     <div id="container">
         <div class="item" style="height: 275px;">55</div>
@@ -35,10 +34,6 @@
         rightin.onclick = function rightIn(){
             var div = addDiv();
             container.appendChild(div);
-            // if (input_num%1 === 0) {
-            //     container.innerHTML = "<span>" + input_num + "</span>";
-            // }
-            //存在问题，会使得 leftwrap 函数无法使用。
         }
 
         leftin.onclick = function leftIn() {
@@ -68,7 +63,6 @@
             var div = document.createElement("div");
             var value = document.body.firstElementChild.value;
             var height = value*5 + "px";
-            // alert(height);
             div_count = container.getElementsByTagName("*");
             if (div_count.length > 60 ) {
                 alert("队列内容大于60，请清除队列");
@@ -80,7 +74,6 @@
                 div.appendChild(text);
                 div.className = "item";
                 div.style.height = height;
-                //绑定 click 事件
                 div.addEventListener("click",remove);
                 value = "";
                 return div;//为什么要 return div?
