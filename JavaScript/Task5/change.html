@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .item {
+            float: left;
+            min-width: 25px;
+            margin-top: 10px;
+            background: #f5f5f5;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <input type="text">
+    <button type="button" name="button" id="leftin">左侧入</button>
+    <button type="button" name="button" id="rightin">右侧入</button>
+    <button type="button" name="button" id="leftout">左侧出</button>
+    <button type="button" name="button" id="rightout">右侧出</button>
+    <button type="button" name="button" id="display"> 图像</button>
+    <button type="button" name="button" id="sort">排序</button>
+    <div id="container">
+        <div class="item" style="height: 275px;">55</div>
+        <div class="item" style="height: 110px;">22</div>
+        <div class="item" style="height: 55px;">11</div>
+        <div class="item" style="height: 165px;">33</div>
+    </div>
+    <script type="text/javascript">
+        var input = document.getElementsByTagName("input");
+        var state = [];
+        rightin.onclick = function rightIn(){
+            var div = addDiv();
+            container.appendChild(div);
+            // if (input_num%1 === 0) {
+            //     container.innerHTML = "<span>" + input_num + "</span>";
+            // }
+            //存在问题，会使得 leftwrap 函数无法使用。
+        }
+
+        leftin.onclick = function leftIn() {
+            var div = addDiv();
+            container.insertBefore(div,container.firstElementChild);
+        }
+
+        leftout.onclick = function leftOut() {
+            if (container.firstElementChild) {
+                alert(container.firstElementChild.textContent)
+                container.removeChild(container.firstElementChild);
+            } else {
+                alert("队列中已不存在数值");
+            }
+        }
+
+        rightout.onclick = function rightOut() {
+            if (container.lastElementChild) {
+                alert(container.lastElementChild.textContent);
+                container.removeChild(container.lastElementChild);
+            } else {
+                alert("队列中已不存在数值");
+            }
+        }
+
+        function addDiv() {
+            var div = document.createElement("div");
+            var value = document.body.firstElementChild.value;
+            var height = value*5 + "px";
+            // alert(height);
+            div_count = container.getElementsByTagName("*");
+            if (div_count.length > 60 ) {
+                alert("队列内容大于60，请清除队列");
+                   return false;
+            }
+
+            if (value >= 10 && value <=100) {
+                var text = document.createTextNode(document.body.firstElementChild.value)
+                div.appendChild(text);
+                div.className = "item";
+                div.style.height = height;
+                //绑定 click 事件
+                div.addEventListener("click",remove);
+                value = "";
+                return div;//为什么要 return div?
+            } else {
+                alert("请输入10~100之间的数字");
+            }
+
+        }
+
+        function remove() {
+            alert("移除的数值为"+ this.innerHTML);
+            this.parentNode.removeChild(this);
+        }
+
+        function getAndSort() {
+            var divs = container.getElementsByTagName("*");
+            var divs_value = [];
+            for (var i=0; i< divs.length; i++) {
+                value = divs[i].textContent;
+                divs_value.push(value);
+            }
+            for (var i = divs_value.length-1; i>0;i--) {
+                for (var j = 0; j < i; j++) {
+                    if (divs_value[j] > divs_value[j+1]) {
+                        var smaller = divs_value[j+1];//bigger 为小的那个
+                        divs_value[j+1] = divs_value[j];//小的放到左边
+                        divs_value[j] =  smaller;//[疑问]这个什么意思？
+                        //将每一次交换的数组存到 state 中，state 是数组的数组
+                        state.push(JSON.parse(JSON.stringify(divs_value)))//为什么放外面?[疑惑]为什么一定要 JSON 放前面?
+                        // state.push(divs_value)
+                    }
+                }
+            }
+            console.log(state)
+            // return state;
+        }
+
+        sort.onclick = function() {
+            getAndSort();
+            // 每500毫秒运行一次 imgBubbles 函数
+            var int = setInterval(imgBubbles, 500);
+            function imgBubbles(){
+                //获取 container
+                var box = document.getElementById("container");
+                // 清空 container
+                //这个 [] 目的貌似为了防止无限循环;不是很明白为什么?
+                var s = state.shift() || [];
+                console.log(s)
+                // 默认的情况下第一次是3 第二次是0,本来不应该出现最后一次的.
+                console.log(s.length)
+                // 如果 s.length > 1则将 box 清空,然后放入下一列的内容
+                if (s.length > 1) {
+                    box.innerHTML = "";
+                    for (var i=0; i<s.length; i++) {
+                        box.innerHTML += "<div>" + "</div>";
+                        var dataDiv = box.querySelectorAll("div");
+                        dataDiv[i].style.height = s[i]*5 + "px";
+                        dataDiv[i].setAttribute("class","item")
+                    }
+                } else {
+                    clearInterval(int)
+                }
+            }
+        }
+
+
+    </script>
+</body>
+</html>

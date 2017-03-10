@@ -25,6 +25,7 @@
     <div id="position">
     </div>
     <script type="text/javascript">
+        var input = document.getElementsByTagName("input");
         rightin.onclick = function rightIn(){
             var div = addDiv();
             position.appendChild(div);
@@ -36,6 +37,7 @@
         }
 
         leftout.onclick = function leftOut() {
+            if (!position.firstElementChild) return false;
             if (position.firstElementChild) {
                 alert(position.firstElementChild.textContent);
                 position.removeChild(position.firstElementChild);
@@ -65,6 +67,7 @@
             } else {
                 alert("请输入0-9位的数字");
             }
+            input.value = "";
         }
 
         function remove(){
