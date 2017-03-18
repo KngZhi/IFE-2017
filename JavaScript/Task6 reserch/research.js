@@ -114,21 +114,25 @@ sort.onclick = function() {
 var gobutton = document.getElementById("go");
 var keywordInput = document.getElementById("input");
 //遍历节点来修改
-function research() {
-    var box = document.getElementById("container"),
-        boxchilds = box.childNodes,
-        len = boxchilds.length,
+    $ = function(el){ return document.querySelectorAll(el) };
+
+function research(data) {
+    var box = $('#container'),
         key = keywordInput.value,
-        markedKey = "<mark>" + key + "</mark>"
-        reg = new RegExp(key);
-    for (var i = 0; i < boxchilds.length; i++) {
-        if (boxchilds[i].nodeType == 3) {
-            boxchilds[i].parentNode.removeChild(boxchilds[i])
-        }
-        // 消除所有标记
-        boxchilds[i].innerHTML = boxchilds[i].innerText;
-        boxchilds[i].innerHTML = boxchilds[i].innerHTML.replace(reg,markedKey)
-    }
+        markedKey = "<mark>" + key + "</mark>",
+        data = [];
+        box.innerHTML = data.map(function(d){
+            var d = r;
+            box.replace(key,markedKey)
+        }).join('');
+    // for (var i = 0; i < boxchilds.length; i++) {
+    //     if (boxchilds[i].nodeType == 3) {
+    //         boxchilds[i].parentNode.removeChild(boxchilds[i])
+    //     }
+    //     // 消除所有标记
+    //     boxchilds[i].innerHTML = boxchilds[i].innerText;
+    //     boxchilds[i].innerHTML = boxchilds[i].innerHTML.replace(reg,markedKey)
+    // }
 }
 
-gobutton.onclick = research();
+gobutton.onclick = research($('input').value);
