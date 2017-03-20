@@ -1,7 +1,12 @@
 - 盒子模型的体现
-    - 给定一串数字,然后使用二叉树算法
-    - 生成图像
-    - 可视化遍历过程
+    - 取得数字
+        - 用二叉树遍历获取数字?
+        - 将遍历结果存入到 JSON 列表中.
+    - 可视化过程
+        - 被遍历的节点特殊显示
+            - 添加 class
+            - 如果他不是最后一个,则移除 class
+        - 每隔500ms 再遍历下一个节点.
 - 二叉树算法
     - 二叉树的定义
         - 左右节点树 2,1,0
@@ -12,6 +17,144 @@
         - 前序DLR(根,左,右): 从根开始遍历左子树,然后遍历右子树(从上到下,从左到右)
         - 中序LDR(左,根,右): 从下到上,
         - 后序LRD(左,右,根)
-- 二叉树的可视化
-    - 被遍历的节点作特殊显示
-    - 每隔500ms 再遍历下一个节点
+
+
+Node
+- `data` stores a value
+- `parent` points to a node's parent.
+- `children` points to the next node in the list.
+
+Tree
+- `_root` points to the **root node** of a tree
+- `traverseDF(callback)` traverses nodes of a tree with DFC.
+- `contains(data, traversal)` searches for a node in a tree.
+- `add(data, toData, traverse)` add a node to a tree.
+- `remove(child, parent)` removes a node in a tree.
+
+Properties of a Node
+```js
+function Node(data) {
+    // holds data associtaed with a node.
+    this.data = data;
+    // points to one node.
+    this.parent = null;
+    // points to many children nodes;
+    this.children = [];
+}
+```
+赋予每一个Node三个属性.
+
+Properties of a tree
+```js
+function Tree(data) {
+    //create a new instance of Node;
+    var node = new Node(data);
+    //assigns node as the root of a tree;
+    this._root = node;
+}
+```
+上面的函数创造了一棵树,树的名称就是 data .
+
+## Method of a Tree
+
+### 1 of x:`traverseDF(callback)`
+```js
+Tree.prototype.traverseDF = function (callback) {
+    //这是一个递归而且马上 invoking 函数
+    (function recurse(currentNode){
+        //第二步
+        for (var i=0, length = currentNode.children.length; i<length ; i++) {
+            //3
+            recurse(currentNode.children[i]);
+        }
+        //4
+        callback(currentNode)
+        //1 (recurese(currentNode) {})(this._root)
+    })(this._root)
+};
+```
+执行步骤
+1. 马上召唤`recurse`,并用树的根节点作为它的 argument.在这时,` currentNode`指向当前节点[\?什么意思].
+2. 输入一个`for` 循环然后对每一个`currentNode`的子节点做迭代,从第一个子节点开始.
+3. `for`循环中,调用 `recurse` 函数并以(现在的节点的所有子节点为参数)
+4. 当`currentNode`不再有子节点时,我们离开`for`循环然后调用 callback[\?callback什么用?]
+
+### 2 of x:`contains(callback,traversal)`
+该方法允许我们在树中搜索特定的值.
+```js
+Tree.prototype.contains = function (callback, traversal) {
+    traversal.call(this, callback);
+};
+```
+ `contains(callback, traversal)` 设置的两个变量,一是要搜索的数据,一是搜索的方法.
+
+ 我们采用`call` 来传递`this`与` callback`.第一个argument binds `traversal` to the tree that invoked contains(callback, traversal)[\?]; 第二个声明是一个函数 that is invoked on every node in our tree.
+
+### 3 of x:`add(data, toData, traversal)`
+
+```js
+Tree.prototype.add = function(data, toData, traversal) {
+    var child = new Node(data),
+        // 初始化为 null,但之后会被赋值为树上的和`toData`符合的节点.
+        parent = null,
+        callback = function(node) {
+            if (node.data === toData) {
+                parent = node;
+            }
+        }
+
+    this.contains(callback, traversal);
+
+    if (parent) {
+        parent.children.push(child);
+        child.parent = parent;        
+    } else {
+        throw new Error('Cannot add node to a non-existent')
+    }
+};
+```
+`data`是创造的例子, `toData` 是用来和每一个树上的节点作比较,`traversal`穿越树的方法.
+
+### 4 of x:`remove(data, fromData, traversal)`
+
+```js
+Tree.prototype.remove = function(data, fromData, traversal) {
+    var tree = this,
+        parent = null,
+        childToRemove = null,
+        index;
+
+    var callback = function(node) {
+        if (node.data === fromData) {
+            parent = node;
+        }
+    }
+
+    this.contains(callback, traversal);
+
+    if (parent) {
+        index = findIndex(parent.children, data);
+    } if (index === undefined) {
+        throw new Error('Node to remove does not exist.');
+    } else {
+        childToRemove = parent.children.splice(index, 1);
+    }
+
+    return childToRemove;
+};
+```
+
+
+```js
+function findIndex(arr, data) {
+    var index;
+
+    for (var i=0; i<arr.length; i++) {
+        if (arr[i].data === data) {
+            index = i;
+        }
+    }
+
+    return index;
+}
+```
