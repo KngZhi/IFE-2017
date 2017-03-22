@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="task5.css">
     <title>Document</title>
 </head>
-<body>
+<body id="index">
     <header>
         <h1>Alpha</h1>
          <nav>
@@ -24,13 +24,13 @@
             <h1>文章一级标题</h1>
             <h2>文章二级标题</h2>
             <p class="author">文章作者 文章发表时间</p>
-             <p>
+            <p>
                  这是一个很长很长的段落这是一个很长很长的段落这是一个很长很长的段落这是一个很长很长的段落这是一个很长很长的段落这是一个很长很长的段落这是一个很长很长的段落这
-             </p>
-             <img src="" alt="">
-             <p>
+            </p>
+            <img src="" alt="">
+            <p>
                  这是一个很长很长的段落这是一个很长很长的段落这是一个很长很长的段落这是一个很长很长的段落这是一个很长很长的段落这是一个很长很长的段落这是一个很长很长的段落这
-             </p>
+            </p>
         </article>
         <article class="">
             <h1>另一篇文章一级标题</h1>
@@ -95,7 +95,7 @@
            </table>
         </article>
     </main>
-    <aside>
+    <aside id="aside">
         <h1 id="aside_title">这里以后是一个侧栏,这是侧栏的标题</h1>
          <article>
              <form class="" action="index.html" method="post">
@@ -106,7 +106,7 @@
                      </li>
                      <li>
                          <span class="clue"></span>
-                         <span>邮箱地址请按要求</span>
+                         <span class="input_cue">邮箱地址请按要求</span>
                      </li>
                      <li>
                           <span class="clue">请输入密码：</span>
@@ -117,7 +117,7 @@
                          <input type="password" placeholder="这个一个数字输入框"></li>
                      <li>
                          <span class="clue"></span>
-                         <span>密码为6-16位数字</span></li>
+                         <span class="input_cue">密码为6-16位数字</span></li>
                      <li>
                          <label class="clue">性别：</label>
                          <label>男</label>
@@ -140,8 +140,12 @@
                          <input type="checkbox" name="science">科学
                      </li>
                      <li>
-                         <span class="clue">个人描述：</span>
-                         <textarea name="personal" placeholder="个人描述"></textarea>
+                         <td>
+                             <span class="clue">个人描述：</span>
+                         </td>
+                         <td>
+                             <textarea name="personal" placeholder="个人描述"></textarea>
+                         </td>
                      </li>
                  </ul>
                  <button type="button" name="submit">确认提交</button>
