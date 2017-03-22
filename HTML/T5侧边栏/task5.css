@@ -1,0 +1,173 @@
+* {
+    display: border-box;
+}
+
+body {
+    background-color: #dedede;
+    margin: 0;
+}
+
+header > h1 {
+    margin: 0;
+    padding-left: 10px;
+}
+
+a {
+    text-decoration: none;
+    color: #dfd8be;
+}
+
+p {
+    text-indent: 2em;
+    margin: 0;
+}
+
+header {
+    background-color: #0d0808;
+    color: white;
+    width: 100%;
+    min-width: 980px;
+    /*position: relative;*/
+}
+
+nav {
+    position: absolute;
+    top: 15px;
+    right: 0;
+}
+
+.nav_list {
+    list-style-type: none;
+    font: #f4eced;
+    float: right;
+    margin-right: 10px;
+    margin-top: -20px;
+}
+
+article {
+    /*display: flex;*/
+    background-color: #fff;
+    margin: 10px;
+    padding: 15px 10px 10px 10px;
+}
+
+article > h1 {
+    font-size: 1.5em;
+}
+
+article > h2 {
+    font-size: 1.1em;
+    color: #989691;
+}
+
+p > a {
+    color: #3e64c3;
+    text-decoration: underline;
+}
+
+main {
+    padding-right: 400px;
+    position: relative;
+}
+
+aside {
+    position: absolute;
+    width: 370px;
+    right: 0;
+    top: 45px;
+}
+
+.author {
+    font-size: 0.8em;
+    color: #909090;
+    text-indent: 0;
+    margin-bottom: 5px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th {
+    background-color: #000;
+    color: #fff;
+    border: 1px solid #5b5f60;
+}
+
+td {
+    border: 0.5px solid #a4a4a4;
+}
+
+tfoot {
+    border: 0;
+    background-color: #a4a4a4;
+}
+
+aside {
+    margin: 10px;
+    padding: 10px;
+    background-color: #fff;
+}
+
+#aside_title {
+    border-left: 2px solid #5b5b5b;
+    font-size: 1.2em;
+    padding-left: 1em;
+    display: block;
+    height: 2em;
+    vertical-align: bottom;
+    margin-bottom: 0;
+}
+
+.left {
+    display: inline-block;
+    min-width: 150px;
+    width: 40%;
+    text-align: right;
+}
+
+.right {
+    display: inline-block;
+    width: 50%;
+    min-width: 200px;
+    text-align: left;
+}
+
+ul > li {
+    list-style-type: none;
+}
+
+aside ul {
+    padding-left: 0;
+}
+
+textarea {
+    width: 10em;
+    height: 2em;
+}
+.clue {
+    min-width: 150px;
+    width: 40%;
+    text-align: right;
+    display: inline-block;
+}
+
+button[name="submit"] {
+    width: 100%;
+    height: 40px;
+    border-radius: 10px;
+    border: 0;
+    background-color: #3e84d6;
+    color: #fff;
+    font-size: 15px;
+}
+
+footer {
+    width: 100%;
+    min-width: 980px;
+    background-color: #000;
+    color: #fff;
+    text-align: center;
+    height: 40px;
+}
