@@ -69,7 +69,7 @@ main {
 
 #intro {
     width: 641px;
-    margin-right: 20px;
+    margin-right: 48px;
     display: flex;
     flex-wrap: wrap;
     margin-bottom: 30px;
@@ -233,7 +233,7 @@ main {
 
 #illstrate {
     width: 458px;
-    margin-left: 10px;
+    margin-left: 18px;
 }
 
 .graphic {
