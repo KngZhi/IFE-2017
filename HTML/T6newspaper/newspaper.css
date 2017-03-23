@@ -1,0 +1,378 @@
+/* 全局设定 */
+/**
+ * @d35e5f 橘红
+ * @f5e041 明黄
+ * @d6a162 淡黄
+ * @74b06d 淡绿
+ * @14476b 深蓝
+ * @ca767f 粉色
+ *
+ *
+*/
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+}
+
+header,main,footer {
+    width: 892px;
+    margin: 0 auto;
+}
+
+header,footer {
+    min-height: 50px;
+}
+
+a {
+    text-decoration: none;
+}
+
+p {
+    font-size: 12px;
+    color: #231815;
+    word-wrap: break-word;
+    line-height: 16px;
+    opacity: 0.7;
+}
+
+/* @header part */
+
+header {
+    border-bottom: 2px #938e8c solid;
+}
+
+header a {
+    display: inline-block;
+    color: #fff;
+    padding-top: 30px;
+    padding-left: 5px;
+    background: #d35e5f;
+    height: 61px;
+    width: 110px;
+}
+
+time {
+    float: right;
+    padding-top: 30px;
+    color: #d35e5f;
+}
+
+/* @main */
+main {
+    margin-top: 30px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+#intro {
+    width: 641px;
+    margin-right: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 30px;
+}
+/*
+* @bug 图片高度不是自适应
+*/
+#container {
+    position: relative;
+}
+
+#img_left {
+    position: absolute;
+    left: 0;
+    width: 191px;
+    height: 310px;
+    background-color: rgba(44, 81, 63, 0.5);
+}
+
+#intro_img {
+    width: 100%;
+    height: 310px;
+    display: block;
+}
+
+/*
+* @bug 为什么这里要加 bottom 0 才上来.
+ */
+#img_right {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    width: 191px;
+    height: 310px;
+    background-color: rgba(228, 183, 183, 0.5);
+}
+
+#intro section:last-child {
+    width: 185px;
+}
+
+.explain {
+    margin-right: 25px;
+    width: 190px;
+}
+
+.title {
+    text-decoration: underline;
+    text-transform: capitalize;
+    margin-bottom: 0;
+    font-size: 16px;
+    line-height: 40px;
+    font-weight: bold;
+}
+
+#born {
+    color: #74b06d;
+}
+
+#died {
+    color: #d2994f;
+}
+
+#ideas {
+    color: #cc7680;
+}
+
+.num {
+    color: #cd4a48;
+    font-size: 12px;
+    font-style: italic;
+    line-height: 16px;
+    opacity: 0.7;
+}
+
+#brief {
+    width: 203px;
+    border-top: 2px solid #cc8091;
+}
+
+#brief p {
+    line-height: 10px;
+    font-size: 12px;
+    color: #676767;
+}
+
+#brief span {
+    line-height: 1.1em;
+}
+
+#giant_num {
+    font-size: 116px;
+    color: #77b66e;
+}
+
+#middle_num {
+    font-size: 55px;
+    color: #cc8091;
+    display: inline-block;
+}
+
+#small_alpha {
+    font-size: 21px;
+    color: #cc8091;
+    display: inline-block;
+    position: relative;
+    bottom: 12px;
+}
+
+#smaller_alpha {
+    font-size: 12px;
+    color: #c1c1c1;
+    position: relative;
+    left: 85px;
+    bottom: 27px;
+}
+
+/*
+* @尼采术语的介绍
+ */
+
+#example {
+    width: 415px;
+}
+
+#example h1 {
+    text-transform: uppercase;
+    border-bottom: 2px #15476a solid;
+    font-weight: bold;
+    /*line-height: 16px;*/
+    color: #11456b;
+    font-size: 26px;
+}
+
+.first_word {
+    font-size: 72px;
+    color: #f5e327;
+    font-weight: 700;
+    text-transform: uppercase;
+    padding-right: 10px;
+}
+
+.second_word {
+    font-size: 33px;
+    color: #11456b;
+    font-family: "黑体";
+    font-weight: bold;
+}
+
+#float_one {
+    float: left;
+    line-height: .8em;
+    margin-right: 5px;
+    font-family: fantasy;
+}
+
+#head_photo {
+    width: 8rem;
+    float: right;
+}
+
+#illstrate {
+    width: 458px;
+    margin-left: 10px;
+}
+
+.graphic {
+    position: relative;
+    margin-bottom: 30px;
+}
+
+.graphic img {
+    width: 100%;
+    height: 275px;
+    display: block;
+}
+
+#illstration {
+    padding: 10px 20px;
+    position:absolute;
+    bottom: 0;
+    background-color: rgba(122,119,128,.7);
+    opacity: 50%;
+    width: 100%;
+    height: 61px;
+}
+
+#illstration h1 {
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-left: .5em;
+    display: inline-block;
+    border-left: 3px #72b16a solid;
+    color: white;
+}
+
+#illstration span {
+    font-style: italic;
+    color: #74b06b;
+}
+
+#context {
+    background-color: #eeeed7;
+    margin-top: 10px;
+    padding-top: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    position: relative;
+}
+
+#context ul {
+    list-style-type: none;
+    margin-top: 10px;
+}
+
+ul > li {
+    line-height: 20px;
+    font-size: 15px;
+    color: #5a5b5b;
+    text-align: left;
+}
+
+.bounce {
+    height: 0;
+    width: 0;
+
+    border-left: 7px solid transparent;
+    border-right: 7px solid transparent;
+    border-bottom: 15px solid #13466a;
+    display: inline-block;
+
+    margin-right: 1em;
+}
+
+#panel {
+    background-color: #d35e5f;
+    width: 260px;
+    height: 160px;
+    padding: 20px 30px;
+}
+
+#giant {
+    line-height: .8em;
+    font-size: 110px;
+    padding-right: 5px;
+    border-right: 2px solid #fff;
+    color: #fff;
+    display: inline-block;
+    font-family: "微软雅黑";
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+#giant_illstrate {
+    color: #fff;
+    display: inline-block;
+    width: calc(100% - 8em);
+}
+
+#headline {
+    color: #fff;
+    font-size: 21px;
+    font-style: italic;
+    font-family: "黑体";
+    line-height: 24px;
+    text-transform: uppercase;
+}
+
+#theworld {
+    font-size: 14px;
+    font-family: "黑体";
+    font-style: italic;
+    line-height: 16px;
+    width: 40%;
+    display: inline-block;
+    padding: 10px;
+    margin-top: 0;
+    margin-bottom: 0;
+    text-indent: 2em;
+    word-break: break-all;
+}
+
+.symbol {
+    color: #d35e5f;
+    font-size: 3em;
+    position: absolute;
+}
+
+#first_sy {
+    right: 3.6em;
+    top: 2.05em;
+}
+
+#last_sy {
+    right: 20px;
+    bottom: -20px;
+}
+
+footer {
+    border-top: 1px solid #938e8b;
+}
+
+footer a {
+    color: #d35e5f;
+    float: right;
+}
