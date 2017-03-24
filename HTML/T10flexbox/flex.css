@@ -1,0 +1,55 @@
+/*
+* @TODO
+*     - 两者之间的间距如何解决?
+*     - 网页宽度变化后,蓝色跳到第一个位置怎么做?
+*/
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.column {
+    width: 150px;
+    border: 1px solid #f00;
+
+}
+
+#long {
+    height: 120px;
+}
+
+#middle {
+    height: 100px;
+}
+
+#small {
+    height: 40px;
+}
+
+#blue {
+    height: 200px;
+    border-color: #364bf9;
+}
+
+@media (max-width: 640px) {
+    #blue {
+        order: -1;
+    }
+    body {
+        align-items: flex-start;
+    }
+}
+
+@media (max-width: 600px) {
+    #small {
+        margin-top: 20px;
+    }
+}
