@@ -1,4 +1,3 @@
-/* 全局设定 */
 /**
  * @d35e5f 橘红
  * @f5e041 明黄
@@ -6,9 +5,9 @@
  * @74b06d 淡绿
  * @14476b 深蓝
  * @ca767f 粉色
- *
- *
 */
+
+/* @genernal */
 * {
     box-sizing: border-box;
 }
@@ -17,47 +16,53 @@ body {
     margin: 0;
 }
 
-header,main,footer {
+header,
+main,
+footer {
     width: 892px;
     margin: 0 auto;
 }
 
-header,footer {
+header,
+footer {
     min-height: 50px;
 }
 
 a {
+    font: 12px '黑体';
     text-decoration: none;
 }
 
 p {
     font-size: 12px;
-    color: #231815;
-    word-wrap: break-word;
     line-height: 16px;
-    opacity: 0.7;
+    color: rgba(35, 24, 21, .7);
 }
 
-/* @header part */
+/* @header */
 
 header {
     border-bottom: 2px #938e8c solid;
+    position: relative;
 }
 
+/* 方法一: 通过 flex 来左下角 和 float+position 右下角 */
 header a {
-    display: inline-block;
+    display: flex;
     color: #fff;
-    padding-top: 30px;
     padding-left: 5px;
     background: #d35e5f;
-    height: 61px;
+    height: 59px;
     width: 110px;
+    align-items: flex-end;
 }
 
 time {
-    float: right;
-    padding-top: 30px;
+    font:  12px '黑体';
     color: #d35e5f;
+    position: absolute;
+    right: 0;
+    bottom: 0;
 }
 
 /* @main */
@@ -77,11 +82,17 @@ main {
 /*
 * @bug 图片高度不是自适应
 */
-#container {
+#intro-img {
     position: relative;
+    background-image: url(imgs/intro.jpg) ;
+    width: 641px;
+    height: 310px;
+    background-size: cover;
 }
 
-#img_left {
+/* bugfix 为什么这里不能用 img 来进行 before 和 after 的设置? */
+#intro-img::before {
+    content: '';
     position: absolute;
     left: 0;
     width: 191px;
@@ -89,16 +100,11 @@ main {
     background-color: rgba(44, 81, 63, 0.5);
 }
 
-#intro_img {
-    width: 100%;
-    height: 310px;
-    display: block;
-}
-
 /*
-* @bug 为什么这里要加 bottom 0 才上来.
+* @bugfix 为什么这里要加 bottom 0 才上来.
  */
-#img_right {
+#intro-img::after {
+    content: '';
     position: absolute;
     right: 0;
     bottom: 0;
@@ -106,6 +112,7 @@ main {
     height: 310px;
     background-color: rgba(228, 183, 183, 0.5);
 }
+
 
 #intro section:last-child {
     width: 185px;
@@ -138,11 +145,8 @@ main {
 }
 
 .num {
-    color: #cd4a48;
-    font-size: 12px;
+    color: rgba(205, 74, 72, .7);
     font-style: italic;
-    line-height: 16px;
-    opacity: 0.7;
 }
 
 #brief {
@@ -195,21 +199,28 @@ main {
     width: 415px;
 }
 
-#example h1 {
-    text-transform: uppercase;
-    border-bottom: 2px #15476a solid;
-    font-weight: bold;
-    /*line-height: 16px;*/
+.headline {
+    font: bold 42px/16px '黑体';
     color: #11456b;
-    font-size: 26px;
+    margin-bottom: 10px;
+}
+
+.sideline {
+    display: block;
+    font: bold 33px  '黑体';
+    color: #11456b;
+    border-bottom: 2px solid #11456b;
+}
+
+#first-word {
+    font-size: 72px;
+    color: #f5e327;
+    text-transform: uppercase;
+    font-style: italic;
 }
 
 .first_word {
-    font-size: 72px;
-    color: #f5e327;
-    font-weight: 700;
-    text-transform: uppercase;
-    padding-right: 10px;
+
 }
 
 .second_word {
@@ -220,10 +231,11 @@ main {
 }
 
 #float_one {
+    font: 700 72px/.8em fantasy;
+    color: #f5e327;
+    padding-right: 10px;
     float: left;
-    line-height: .8em;
     margin-right: 5px;
-    font-family: fantasy;
 }
 
 #head_photo {
@@ -248,27 +260,22 @@ main {
 }
 
 #illstration {
+    display: inline-block;
     padding: 10px 20px;
     position:absolute;
     bottom: 0;
     background-color: rgba(122,119,128,.7);
-    opacity: 50%;
     width: 100%;
     height: 61px;
-}
-
-#illstration h1 {
-    margin-top: 0;
-    margin-bottom: 0;
-    padding-left: .5em;
-    display: inline-block;
+    font: 26px '微软雅黑';
+    color: #fff;
     border-left: 3px #72b16a solid;
-    color: white;
 }
 
-#illstration span {
-    font-style: italic;
-    color: #74b06b;
+#illstration::after {
+    content: "Apollo and Dionysus.";
+    font: italic 12px/1.4 '微软雅黑';
+    color: #72b16a;
 }
 
 #context {
@@ -280,12 +287,12 @@ main {
     position: relative;
 }
 
-#context ul {
-    list-style-type: none;
+ul {
     margin-top: 10px;
 }
 
-ul > li {
+li {
+    list-style-type: none;
     line-height: 20px;
     font-size: 15px;
     color: #5a5b5b;
@@ -348,24 +355,28 @@ ul > li {
     padding: 10px;
     margin-top: 0;
     margin-bottom: 0;
-    text-indent: 2em;
+    text-indent: 6px;
     word-break: break-all;
+    position: relative;
 }
 
-.symbol {
+q::after,
+q::before {
     color: #d35e5f;
     font-size: 3em;
-    position: absolute;
+    position: relative;
+    line-height: 0;
 }
 
-#first_sy {
-    right: 3.6em;
-    top: 2.05em;
+q::before {
+    right: 0.4em;
+    top: 0.4em;
+
 }
 
-#last_sy {
-    right: 20px;
-    bottom: -20px;
+q::after {
+    left: 1.5em;
+    top: 0.6em;
 }
 
 footer {
