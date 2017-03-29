@@ -1,22 +1,25 @@
 function testInput() {
     var info = document.getElementById('info');
-    var input_text = document.getElementById('input').value;
-    var inputchar_len = getStrLeng(input_text);
-    console.log(inputchar_len)
-    if (input_text == '') {
-        info.textContent = '姓名不能为空';
-        info.setAttribute('class', 'help')
-    } else if (inputchar_len > 3 && inputchar_len < 17) {
-        info.textContent = '姓名格式正确';
-        info.setAttribute('class', 'bang');
+    var char = document.getElementById('input').value;
+    var char_len = getStrLen(char);
+    console.log(char_len)
+
+    if (char_len === 0) {
+        notice('姓名不能为空','help');
+    } else if (char_len > 3 && char_len < 17) {
+        notice('姓名格式正确', 'bang');
     } else {
-        info.textContent = '请参照正确格式填入';
-        info.setAttribute('class', '');
+        notice('请参照正确格式书写', '');
     }
 }
 
-var button = document.getElementById('button');
-button.addEventListener('click', testInput);
+function notice(msg, form) {
+    info.textContent = msg;
+    info.className = form;
+}
+
+var btn = document.getElementById('button');
+btn.addEventListener('click', testInput);
 
 function getStrLen(str) {
     var enLen = 0;
@@ -26,15 +29,39 @@ function getStrLen(str) {
         // 返回字符在 UTF-16 中的位置;
         var char = str[i].charCodeAt();
         // 如果字符的位置小于256(0~255 即为 ASCII 码);
-        if (char < 256) {
+        if (char < 0xFF) {
             enLen++;
         } else {
             zhLen++;
         }
     }
+    /* 判定 32bit 的方法;
+    var i = 0,
+        len = 0;
+    while (i < input_len) {
+        var charCode = str[i].charCodeAt();
+        if (charCode < 0xFF) {
+            len++;
+            i++;
+        } else {
+
+            //* 前16bit 一定在 0xD800~0xdbff;
+            //* 后16bit 一定在 0xDC00~0xdfff;
+
+            if (charCode >= oxd800 && charCode <= 0xdfff) {
+                len += 2;
+                i += 2;
+            }
+        }
+    }
+    return len;
+    */
     return enLen + zhLen * 2;
 }
-
+/**
+ * [getStrLeng 判断字符数]
+ * @param  {[type]} str 输入的字符串
+ */
 function getStrLeng(str) {
     var enLen = 0;
     var zhLen = 0;
@@ -50,5 +77,6 @@ function getStrLeng(str) {
 
 function isASCII(str) {
     // return /^[\x00-\x7F]*$/.test(str);
+    // 直接判定返回 true | false;
     return str.codePointAt(0) <= 0xFF;
 }
