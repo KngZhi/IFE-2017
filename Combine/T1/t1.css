@@ -1,0 +1,35 @@
+span {
+    font: bold 25px '黑体';
+}
+
+input {
+    min-width: 200px;
+    outline: none;
+    height: 35px;
+    border-radius: 5px;
+    border: 3px solid #eee;
+}
+
+button {
+    font: bold 16px '黑体';
+    width: 60px;
+    height: 40px;
+    background-color: rgba(52, 122, 183, .8);
+    color: #fff;
+    outline: none;
+
+}
+
+#id {
+    font: bold 12px '黑体';
+    color: #b0b0b0;
+}
+
+.bang {
+    color: green;
+}
+
+.help {
+    font: bold 12px '黑体';
+    color: red;
+}
