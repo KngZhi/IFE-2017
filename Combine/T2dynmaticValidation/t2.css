@@ -1,0 +1,49 @@
+span {
+    font: bold 25px '微软雅黑';
+}
+
+input {
+    min-width: 200px;
+    outline: none;
+    height: 35px;
+    border-radius: 5px;
+    border: 3px solid #eee;
+}
+
+button {
+    font: bold 16px '微软雅黑';
+    width: 60px;
+    height: 40px;
+    background-color: rgba(52, 122, 183, .8);
+    color: #fff;
+    outline: none;
+}
+
+fieldset {
+    border: none;
+}
+
+#id {
+    font: bold 20px '微软雅黑';
+    color: #b0b0b0;
+}
+
+.right {
+    font: bold 20px '微软雅黑';
+    color: green;
+}
+
+.wrong {
+    font: bold 20px '微软雅黑';
+    color: red;
+}
+
+.hidden {
+    visibility: hidden;
+}
+
+.showup {
+    visibility: visible;
+    font: bold 20px '微软雅黑';
+    color: #969191;
+}
