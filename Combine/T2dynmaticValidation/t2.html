@@ -12,29 +12,35 @@
         <fieldset>
             <label for="">名称: </label>
             <input type="text" name="name" id="name">
-            <span class="hidden">必填, 长度为4-16个字符</span>
+            <span class="sgtion">必填, 长度为4-16个字符</span>
+            <span class="info"></span>
         </fieldset>
         <fieldset>
             <label for="">密码: </label>
             <input type="password" name="psd" value="" id="psd">
-            <span class="hidden">密码为4-16字节</span>
+            <span class="sgtion">密码为4-16字节</span>
+            <span class="info"></span>
         </fieldset>
         <fieldset>
             <label for="">密码确认: </label>
             <input type="password" name="repsd" value="" id="repsd">
-            <span class="hidden">再次输入相同密码</span>
+            <span class="sgtion">再次输入相同密码</span>
+            <span class="info"></span>
         </fieldset>
         <fieldset>
             <label for="">邮箱: </label>
             <input type="email" name="email" value="" id="email">
-            <span class="hidden"></span>
+            <span class="sgtion">以 @ 和 . 作为符号分隔</span>
+            <span class="info"></span>
         </fieldset>
         <fieldset>
             <label for="">手机</label>
             <input type="tel" name="tel" value="" id="tel">
-            <span class="hidden"></span>
+            <span class="sgtion"></span>
+            <span class="info"></span>
         </fieldset>
-        <button type="" name="button" onclick="return false">提交</button>
+        <!-- 行为没有与文档分离 -->
+        <button type="submit" name="button" onclick="return false">提交</button>
     </form>
     <script src="t2.js" charset="utf-8"></script>
 </body>

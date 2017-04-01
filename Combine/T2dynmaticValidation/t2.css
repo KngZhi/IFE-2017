@@ -38,8 +38,8 @@ fieldset {
     color: red;
 }
 
-.hidden {
-    visibility: hidden;
+.sgtion {
+    display: none;
 }
 
 .showup {
