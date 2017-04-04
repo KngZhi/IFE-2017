@@ -1,0 +1,22 @@
+* {
+    box-sizing: border-box;
+    font: bold 16px '微软雅黑';
+}
+
+fieldset {
+    border: 0;
+}
+
+select {
+    margin-right: 10px;
+    height: 2em;
+    width: 10em;
+}
+
+label {
+    margin-right: 10px;
+}
+
+.hidden {
+    display: none;
+}
