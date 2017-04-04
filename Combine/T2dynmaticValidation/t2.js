@@ -28,7 +28,6 @@ function testAll() {
     var content = document.getElementsByTagName('input');
     for (var i=0, len=content.length; i<len ; i++) {
         // Thing: 无需点击直接触发事件 x.event();
-        // BUG: 为什么 blur() 没有反应?
         content[i].focus();
     }
     // 防止光标停留在 content[len] 上
@@ -81,9 +80,9 @@ function testEmail() {
 function testInput() {
     char = this.value
     // 手机号码为13位.
-    tel_reg = /[0-9]{1,2}/,
+    tel_reg = /^1(3|4|5|7|8)[0-9]\d{8}$/,
     // 有一个不等的大写\小写\数字,总长度为6-13
-    psd_reg = /[0-9]{1,2}/,
+    psd_reg = /^\d{6,14}$/,
     org_psd = document.getElementById('psd').value,
     info = this.parentNode.lastElementChild;
     type = this.name;
