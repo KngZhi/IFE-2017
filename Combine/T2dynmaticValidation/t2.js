@@ -1,24 +1,45 @@
-// BUG: 检验的方式比较 dirty , 有没有别的检验方式?
-// Sov: 将每一个检验剥离为一个函数, 函数返回 false 或 true , 若有任何一个函数返回了 false 则报错;
+// BUG: 检验的方式比较 dirty
+
+
+// 为所有 input 添加事件
+function addListeners(event, func) {
+    lists = document.getElementsByTagName('input');
+    for (var i=0, len=lists.length; i<len;i++) {
+        lists[i].addEventListener(event, func, false);
+    }
+}
+
+addListeners('focus', toggleInfo);
+addListeners('blur', testInput);
+var btn = document.getElementsByTagName('button')[0];
+// 为什么点击 btn 时光标会自动跳转到最后一项 Input 中, 然后导致无法触发 blur 事件
+btn.onclick = function() {
+    testAll();
+    return false;
+}
+
+var info, char;
+function notice(msg, style) {
+    info.textContent = msg;
+    info.className = style;
+}
+
 function testAll() {
     var content = document.getElementsByTagName('input');
     for (var i=0, len=content.length; i<len ; i++) {
         // Thing: 无需点击直接触发事件 x.event();
+        // BUG: 为什么 blur() 没有反应?
         content[i].focus();
     }
-    var note = document.getElementsByTagName('span');
-    console.log(note);
-    notes = []
-    for (var i=0, len=note.length;i<len; i++) {
-        if (note[i].className === 'wrong') {
-            alert("输入有误");
-            break;
-        } else if (note[len] === 'right') {
-            alert("Boom!")
-        }
+    // 防止光标停留在 content[len] 上
+    btn.focus();
+    var notes = document.getElementsByClassName('right')
+    if (notes.length > 4) {
+        alert('格式输入正确');
+    } else {
+        alert('格式输入错误');
     }
 }
-
 
 function testChar(char) {
     var len = getStrLen(char),
@@ -55,43 +76,23 @@ function testEmail() {
     }
 }
 
-var btn = document.getElementsByTagName('button')[0];
-// 点击 btn 时自动跳转到最后一项 Input 中
-btn.onclick = function(event) {
-    testAll();
-    event.preventDefault();
-}
-
-// btn.addEventListener('click', testAll);
-
-addListeners('focus', toggleInfo);
-addListeners('focusout', testInput);
-
-var info, char;
-function notice(msg, style) {
-    info.textContent = msg;
-    info.className = style;
-}
 
 
 function testInput() {
-    var vanish_one = this.nextElementSibling.className;
     char = this.value
-    tel_reg = /[0-9]{1,4}/,
-    psd_reg = /[0-9]{1,4}/,
-    org_psd = document.getElementById('psd').value
+    // 手机号码为13位.
+    tel_reg = /[0-9]{1,2}/,
+    // 有一个不等的大写\小写\数字,总长度为6-13
+    psd_reg = /[0-9]{1,2}/,
+    org_psd = document.getElementById('psd').value,
     info = this.parentNode.lastElementChild;
     type = this.name;
-
+    this.nextElementSibling.className = 'hidden';
     switch (type) {
         case 'name':
-            this.nextElementSibling.className = 'sgtion';
             testChar(char);
             break;
         case 'psd':
-            // BUG: 正则表达式的问题依然存在
-            // TODO: 重新学习正则表达式
-            this.nextElementSibling.className = 'sgtion';
             if (psd_reg.test(char)) {
                 notice('密码格式正确', 'right');
             } else {
@@ -99,15 +100,12 @@ function testInput() {
             }
             break;
         case 'repsd':
-            this.nextElementSibling.className = 'sgtion';
             testRePsd()
             break;
         case 'email':
-            this.nextElementSibling.className = 'sgtion';
             testEmail();
             break;
         case 'tel':
-            this.nextElementSibling.className = 'sgtion';
             if (tel_reg.test(char)) {
                 notice('电话号码格式正确', 'right');
             } else {
@@ -115,9 +113,7 @@ function testInput() {
             }
             break;
         default: return false;
-
     }
-
 }
 
 function getStrLen(str) {
@@ -140,31 +136,18 @@ function getStrLen(str) {
  * 给 Span 添加 .showup;
  * @return {[type]} [description]
  */
+
 function toggleInfo() {
     hook = this.nextElementSibling;
     biaoji = hook.className;
     next_hook = hook.nextElementSibling;
     // 同时检测两项指标
     switch (biaoji) {
-        case 'sgtion':
+        case 'hidden':
             hook.className = 'showup';
-            // break;
         case 'showup':
-            next_hook.className = 'sgtion'
+            next_hook.className = 'hidden'
             break;
         default: ;
-    }
-}
-
-/**
- * 给元素组批量注册事件
- * @param {[type]} event 注册时事件
- * @param {[type]} func  事件触发时的启动的函数
- */
-
-function addListeners(event, func) {
-    lists = document.getElementsByTagName('input');
-    for (var i=0, len=lists.length; i<len;i++) {
-        lists[i].addEventListener(event, func, false);
     }
 }
