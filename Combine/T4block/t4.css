@@ -1,0 +1,35 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin-left: 20px;
+    margin-top: 20px;
+}
+
+#container {
+    width: 604px;
+    height: 604px;
+    border: 2px solid #000;
+    margin-bottom: 10px;
+}
+
+.column {
+    display: inline-block;
+    width: 60px;
+    height: 60px;
+    border: 1px solid #eee;
+    line-height: 0;
+}
+
+.row {
+    margin: 0;
+    height: 60px;
+}
+
+#key {
+    border-top: 5px solid lightblue;
+    background-color: orangered;
+    width: 60px;
+    height: 60px;
+}
