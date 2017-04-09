@@ -17,7 +17,8 @@ btn.onclick = function () {
 
 
 function notice(msg, style) {
-    var position = this.parentNode.lastElementChild;
+    var position = event.target.parentNode.lastElementChild;
+    console.log(position)
     position.textContent = msg;
     position.className = style;
 }
@@ -25,11 +26,8 @@ function notice(msg, style) {
 function testAll() {
     var content = document.getElementsByTagName('input');
     for (var i = 0, len = content.length; i < len; i++) {
-
-
         content[i].focus();
     }
-
     btn.focus();
     var notes = document.getElementsByClassName('right');
     if (notes.length > 4) {
@@ -37,9 +35,8 @@ function testAll() {
     } else alert('格式输入错误');
 }
 
-function testInput() {
+function testInput(event) {
     var char = this.value.trim();
-    position = this.parentNode.lastElementChild;
     this.nextElementSibling.className = 'hidden';
     switch (this.name) {
         case 'name':
@@ -77,9 +74,7 @@ function getStrLen(str) {
     var len = 0;
     var input_len = str.length;
     for (var i=0; i < input_len; i++) {
-
         var char = str[i].charCodeAt();
-
         if (char < 0xFF) {
             len++;
         } else len += 2
@@ -126,7 +121,6 @@ function toggleInfo() {
     var hook = this.nextElementSibling;
     var class_name = hook.className;
     var next_class_name = hook.nextElementSibling;
-
     switch (class_name) {
         case 'hidden':
             hook.className = 'showup';
