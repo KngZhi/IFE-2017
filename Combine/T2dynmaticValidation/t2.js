@@ -18,7 +18,6 @@ btn.onclick = function () {
 
 function notice(msg, style) {
     var position = event.target.parentNode.lastElementChild;
-    console.log(position)
     position.textContent = msg;
     position.className = style;
 }
@@ -36,8 +35,8 @@ function testAll() {
 }
 
 function testInput(event) {
+    toggleInfo(event);
     var char = this.value.trim();
-    this.nextElementSibling.className = 'hidden';
     switch (this.name) {
         case 'name':
             testChar(char);
@@ -117,16 +116,12 @@ function testTel(value) {
 }
 
 
-function toggleInfo() {
-    var hook = this.nextElementSibling;
-    var class_name = hook.className;
-    var next_class_name = hook.nextElementSibling;
-    switch (class_name) {
-        case 'hidden':
-            hook.className = 'showup';
-        case 'showup':
-            next_class_name.className = 'hidden'
-            break;
-        default:
+function toggleInfo(event) {
+    var info = event.target.nextElementSibling;
+    info.className = 'showup';
+    var msg = info.nextElementSibling;
+    msg.className = 'hidden';
+    if(event.type === 'blur') {
+        info.className = 'hidden';
     }
 }
