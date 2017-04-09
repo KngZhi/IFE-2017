@@ -1,7 +1,4 @@
 'use strict';
-// var form = document.getElementById('form');
-// form.addEventListener('click', toggleInfo, false);
-// form.addEventListener('blur', testInput, false);
 
 function addListeners(event, func) {
     var lists = document.getElementsByTagName('input');
@@ -28,11 +25,11 @@ function notice(msg, style) {
 function testAll() {
     var content = document.getElementsByTagName('input');
     for (var i = 0, len = content.length; i < len; i++) {
-        // Thing: 无需点击直接触发事件 x.event();
-        // BUG: 为什么 blur() 没有反应?
+
+
         content[i].focus();
     }
-    // 防止光标停留在 content[len] 上
+
     btn.focus();
     var notes = document.getElementsByClassName('right');
     if (notes.length > 4) {
@@ -40,14 +37,6 @@ function testAll() {
     } else alert('格式输入错误');
 }
 
-function notice(msg, style) {
-    var position = this.parentNode.lastElementChild;
-    position.textContent = msg;
-    position.className = style;
-}
-
-
-// 验证输入的信息
 function testInput() {
     var char = this.value.trim();
     position = this.parentNode.lastElementChild;
@@ -72,7 +61,7 @@ function testInput() {
     }
 }
 
-// 验证姓名
+
 function testChar(len) {
     var sg = '请参照正确格式书写';
     var right = '姓名格式正确';
@@ -88,9 +77,9 @@ function getStrLen(str) {
     var len = 0;
     var input_len = str.length;
     for (var i=0; i < input_len; i++) {
-        // 返回字符在 UTF-16 中的位置;
+
         var char = str[i].charCodeAt();
-        // 如果字符的位置小于256(0~255 即为 ASCII 码);
+
         if (char < 0xFF) {
             len++;
         } else len += 2
@@ -98,7 +87,7 @@ function getStrLen(str) {
     return len;
 }
 
-// 验证密码
+
 function testPsd(value) {
     var psd_reg = /^\d{6,14}/;
     if (psd_reg.test(value)) {
@@ -106,7 +95,7 @@ function testPsd(value) {
     } else notice('请按格式要求输入内容', 'wrong');
 }
 
-// 第二次验证密码
+
 function testRePsd(value) {
     var org_psd = document.getElementById('psd').value;
     if (!org_psd) {
@@ -116,7 +105,7 @@ function testRePsd(value) {
     } else notice('密码不一致', 'wrong');
 }
 
-// 验证邮箱
+
 function testEmail(value) {
     var filter = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
     if (filter.test(value)) {
@@ -124,7 +113,7 @@ function testEmail(value) {
     } else notice('请按格式要求输入内容', 'wrong');
 }
 
-// 验证手机
+
 function testTel(value) {
     var filter = /^(13[0-9]|14[0-9]|15[0-9]|18[0-9])\d{8}$/;
     if (filter.test(value)) {
@@ -132,12 +121,12 @@ function testTel(value) {
     } else notice('请按格式要求输入内容', 'wrong')
 }
 
-// 提示信息
+
 function toggleInfo() {
     var hook = this.nextElementSibling;
     var class_name = hook.className;
     var next_class_name = hook.nextElementSibling;
-    // 同时检测两项指标
+
     switch (class_name) {
         case 'hidden':
             hook.className = 'showup';
