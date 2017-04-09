@@ -15,13 +15,6 @@ btn.onclick = function () {
     return false;
 };
 
-
-function notice(msg, style) {
-    var position = event.target.parentNode.lastElementChild;
-    position.textContent = msg;
-    position.className = style;
-}
-
 function testAll() {
     var content = document.getElementsByTagName('input');
     for (var i = 0, len = content.length; i < len; i++) {
@@ -124,4 +117,10 @@ function toggleInfo(event) {
     if(event.type === 'blur') {
         info.className = 'hidden';
     }
+}
+
+function notice(msg, style) {
+    var position = event.target.parentNode.lastElementChild;
+    position.textContent = msg;
+    position.className = style;
 }
