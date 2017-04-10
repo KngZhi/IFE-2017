@@ -3,7 +3,7 @@ var form = document.getElementById('form');
 form.addEventListener('focusin', toggleInfo);
 form.addEventListener('focusout', testInput);
 
-var btn = document.getElementsByTagName('button')[0];
+var btn = document.querySelector('button');
 btn.addEventListener('click', testAll);
 
 function testAll() {
