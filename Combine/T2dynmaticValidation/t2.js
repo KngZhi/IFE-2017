@@ -1,15 +1,8 @@
 'use strict';
 var form = document.getElementById('form');
+form.addEventListener('focusin', toggleInfo);
+form.addEventListener('focusout', testInput);
 
-function addListeners(event, func) {
-    var lists = document.getElementsByTagName('input');
-    for (var i=0, len=lists.length; i<len;i++) {
-        lists[i].addEventListener(event, func, false);
-    }
-}
-
-addListeners('focus', toggleInfo);
-addListeners('blur', testInput);
 var btn = document.getElementsByTagName('button')[0];
 btn.onclick = function () {
     testAll();
@@ -30,8 +23,9 @@ function testAll() {
 
 function testInput() {
     toggleInfo();
-    var char = this.value.trim();
-    switch (this.name) {
+    var position = event.target
+    var char = position.value.trim();
+    switch (position.name) {
         case 'name':
             testChar(char);
             break;
@@ -115,7 +109,7 @@ function toggleInfo() {
     info.className = 'showup';
     var msg = info.nextElementSibling;
     msg.className = 'hidden';
-    if(event.type === 'blur') {
+    if(event.type == 'focusout') {
         info.className = 'hidden';
     }
 }
