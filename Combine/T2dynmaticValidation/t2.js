@@ -1,4 +1,5 @@
 'use strict';
+var form = document.getElementById('form');
 
 function addListeners(event, func) {
     var lists = document.getElementsByTagName('input');
