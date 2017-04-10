@@ -22,7 +22,6 @@ function testInput() {
     toggleInfo();
     var position = event.target
     var char = position.value.trim();
-    console.log(char)
     switch (position.name) {
         case 'name':
             var len = getStrLen(char);
@@ -56,8 +55,7 @@ function testChar(len) {
 }
 
 function getStrLen(str) {
-    console.log(str)
-    var len = 0;
+     var len = 0;
     var input_len = str.length;
     for (var i=0; i < input_len; i++) {
         var char = str[i].charCodeAt();
@@ -65,8 +63,7 @@ function getStrLen(str) {
             len++;
         } else len += 2
     }
-    console.log(len)
-    return len;
+     return len;
 }
 
 function testPsd(value) {
