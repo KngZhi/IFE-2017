@@ -27,8 +27,8 @@ function testAll() {
     } else alert('格式输入错误');
 }
 
-function testInput(event) {
-    toggleInfo(event);
+function testInput() {
+    toggleInfo();
     var char = this.value.trim();
     switch (this.name) {
         case 'name':
@@ -109,7 +109,7 @@ function testTel(value) {
 }
 
 
-function toggleInfo(event) {
+function toggleInfo() {
     var info = event.target.nextElementSibling;
     info.className = 'showup';
     var msg = info.nextElementSibling;
