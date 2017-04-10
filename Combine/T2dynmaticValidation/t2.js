@@ -4,10 +4,7 @@ form.addEventListener('focusin', toggleInfo);
 form.addEventListener('focusout', testInput);
 
 var btn = document.getElementsByTagName('button')[0];
-btn.onclick = function () {
-    testAll();
-    return false;
-};
+btn.addEventListener('click', testAll);
 
 function testAll() {
     var content = document.getElementsByTagName('input');
@@ -19,6 +16,7 @@ function testAll() {
     if (notes.length > 4) {
         alert('格式输入正确');
     } else alert('格式输入错误');
+    return false;
 }
 
 function testInput() {
