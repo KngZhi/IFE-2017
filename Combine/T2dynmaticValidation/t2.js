@@ -20,9 +20,12 @@ function testInput() {
     toggleInfo();
     var position = event.target
     var tishi = position.parentNode.lastElementChild;
+    console.log(tishi)
     var char = position.value.trim();
-    var filter;
-    function test(){
+    var filter = {
+        psd: /^\d{6,14}/
+    };
+    function test(filter){
         if (filter.test(char)) {
             tishi.textContent = '格式正确';
             tishi.className = 'right';
@@ -31,10 +34,11 @@ function testInput() {
             tishi.className = 'wrong';
         }
     }
-    switch (poition.name) {
+    switch (position.name) {
         case 'psd':
-            filter = /^\d{6,14}/;
-            test();
+            console.log(filter[position.name]);
+            test(filter[position.name]);
+
             break;
         case 'repsd':
             testRePsd(char);
