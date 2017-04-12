@@ -23,7 +23,10 @@ function testInput() {
     console.log(tishi)
     var char = position.value.trim();
     var filter = {
-        psd: /^\d{6,14}/
+        name: /^\d{5,16}$/,
+        psd: /^\d{6,14}/,
+        email: /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/,
+        tel: /^(13[0-9]|14[0-9]|15[0-9]|18[0-9])\d{8}$/
     };
     function test(filter){
         if (filter.test(char)) {
@@ -36,25 +39,20 @@ function testInput() {
     }
     switch (position.name) {
         case 'psd':
-            console.log(filter[position.name]);
-            test(filter[position.name]);
-
+            test(filter.psd);
             break;
         case 'repsd':
             testRePsd(char);
             break;
         case 'email':
-            filter = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
-            test();
+            test(filter.email);
             break;
         case 'tel':
-            filter = /^(13[0-9]|14[0-9]|15[0-9]|18[0-9])\d{8}$/;
-            test();
+            test(filter.tel);
         break;
         default:
             getStrLen(char);
-            filter = /^\d{5,16}$/
-            test();
+            test(filter.name);
     }
 }
 
