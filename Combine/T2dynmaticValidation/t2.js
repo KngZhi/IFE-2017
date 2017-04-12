@@ -3,9 +3,7 @@ var form = document.getElementById('form');
 form.addEventListener('focusin', toggleInfo);
 form.addEventListener('focusout', testInput);
 var btn = document.querySelector('button');
-btn.addEventListener('click', testAll);
-
-function testAll() {
+btn.addEventListener('click', function(){
     var content = document.getElementsByTagName('input');
     for (var i = 0, len = content.length; i < len; i++) {
         content[i].focus();
@@ -16,7 +14,7 @@ function testAll() {
         alert('格式输入正确');
     } else alert('格式输入错误');
     return false;
-}
+});
 
 function testInput() {
     toggleInfo();
@@ -53,7 +51,7 @@ function testChar(len) {
 }
 
 function getStrLen(str) {
-     var len = 0;
+    var len = 0;
     var input_len = str.length;
     for (var i=0; i < input_len; i++) {
         var char = str[i].charCodeAt();
