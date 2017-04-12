@@ -49,20 +49,10 @@ function testInput() {
             test();
         break;
         default:
-            var len = getStrLen(char);
-            testChar(len);
+            getStrLen(char);
+            filter = /^\d{5,16}$/
+            test();
     }
-}
-
-function testChar(len) {
-    var sg = '请参照正确格式书写';
-    var right = '姓名格式正确';
-    var wrong = '姓名不能为空';
-    if (len == 0) {
-        notice(wrong, 'wrong');
-    } else if (len > 4 && len < 17) {
-        notice(right, 'right');
-    } else notice(sg, 'wrong');
 }
 
 function getStrLen(str) {
