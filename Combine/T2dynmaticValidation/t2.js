@@ -19,20 +19,19 @@ btn.addEventListener('click', function(){
 function testInput() {
     toggleInfo();
     var position = event.target
-    var checkName = position.name;
     var tishi = position.parentNode.lastElementChild;
     var char = position.value.trim();
     var filter;
     function test(){
         if (filter.test(char)) {
-            tishi.textContent = checkName + '输入格式正确';
+            tishi.textContent = '格式正确';
             tishi.className = 'right';
         } else {
-            tishi.textContent = checkName + '输入格式错误';
+            tishi.textContent = '格式错误';
             tishi.className = 'wrong';
         }
     }
-    switch (checkName) {
+    switch (poition.name) {
         case 'psd':
             filter = /^\d{6,14}/;
             test();
