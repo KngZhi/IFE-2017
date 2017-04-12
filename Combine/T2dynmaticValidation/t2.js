@@ -19,19 +19,34 @@ btn.addEventListener('click', function(){
 function testInput() {
     toggleInfo();
     var position = event.target
+    var checkName = position.name;
+    var tishi = position.parentNode.lastElementChild;
     var char = position.value.trim();
-    switch (position.name) {
+    var filter;
+    function test(){
+        if (filter.test(char)) {
+            tishi.textContent = checkName + '输入格式正确';
+            tishi.className = 'right';
+        } else {
+            tishi.textContent = checkName + '输入格式错误';
+            tishi.className = 'wrong';
+        }
+    }
+    switch (checkName) {
         case 'psd':
-            testPsd(char)
+            filter = /^\d{6,14}/;
+            test();
             break;
         case 'repsd':
             testRePsd(char);
             break;
         case 'email':
-            testEmail(char);
+            filter = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+            test();
             break;
         case 'tel':
-            testTel(char);
+            filter = /^(13[0-9]|14[0-9]|15[0-9]|18[0-9])\d{8}$/;
+            test();
         break;
         default:
             var len = getStrLen(char);
@@ -62,13 +77,6 @@ function getStrLen(str) {
      return len;
 }
 
-function testPsd(value) {
-    var psd_reg = /^\d{6,14}/;
-    if (psd_reg.test(value)) {
-        notice('密码格式正确', 'right');
-    } else notice('请按格式要求输入内容', 'wrong');
-}
-
 function testRePsd(value) {
     var org_psd = document.getElementById('psd').value;
     if (!org_psd) {
@@ -76,20 +84,6 @@ function testRePsd(value) {
     } else if (value === org_psd) {
         notice('两次密码一致', 'right');
     } else notice('密码不一致', 'wrong');
-}
-
-function testEmail(value) {
-    var filter = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
-    if (filter.test(value)) {
-        notice('输入正确!', 'right');
-    } else notice('请按格式要求输入内容', 'wrong');
-}
-
-function testTel(value) {
-    var filter = /^(13[0-9]|14[0-9]|15[0-9]|18[0-9])\d{8}$/;
-    if (filter.test(value)) {
-        notice('输入正确', 'right');
-    } else notice('请按格式要求输入内容', 'wrong')
 }
 
 function toggleInfo() {
