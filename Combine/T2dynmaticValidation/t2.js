@@ -23,10 +23,6 @@ function testInput() {
     var position = event.target
     var char = position.value.trim();
     switch (position.name) {
-        case 'name':
-            var len = getStrLen(char);
-            testChar(len);
-            break;
         case 'psd':
             testPsd(char)
             break;
@@ -39,7 +35,9 @@ function testInput() {
         case 'tel':
             testTel(char);
         break;
-        default: return false;
+        default:
+            var len = getStrLen(char);
+            testChar(len);
     }
 }
 
